@@ -10,9 +10,7 @@ const getNotes = (note) => {
 const addNote = (title, body) => {
     const dataB = loadNote();
     // checking for duplicate titles
-    const duplicate = dataB.filter((note)=> {
-        return note.title === title;
-    })
+    const duplicate = dataB.filter((note)=> note.title === title)
 
     // using my search to determine if the new note should be added or is already added
     if (duplicate.length === 0) {
@@ -42,9 +40,7 @@ const removeNote = (title) => {
 // This create a new array using filters based on the condition that 
 // the titles does not match the one i intend rempving
     
-    const newNote = dataB.filter((note) => {
-        return note.title !== title
-    });
+    const newNote = dataB.filter((note) => note.title !== title);
 
     if (newNote.length < dataB.length) {
         saveDB(newNote);
@@ -56,6 +52,15 @@ const removeNote = (title) => {
 
 }
 
+const listNodtes = () => {
+    const dataB = loadNote();
+    let num = 0;
+    console.log(chalk.blue.bgWhite.bold('Your Note'))
+    dataB.forEach(note => {
+        num += 1
+        console.log(chalk.red.bgWhite(num + ' ' + note.title));
+    });
+}
 
 // collecting the database so we can work on it
 const loadNote = () => {
@@ -75,5 +80,6 @@ const loadNote = () => {
 module.exports = {
     getNotes,
     addNote,
-    removeNote
+    removeNote,
+    listNodtes
 };

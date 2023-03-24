@@ -1,5 +1,5 @@
 //const chalk =  require('chalk');
-const {getNotes, addNote, removeNote} = require('./note.js');
+const {getNotes, addNote, removeNote, listNodtes} = require('./note.js');
 const yargs = require('yargs');
 
 yargs.command({
@@ -41,7 +41,7 @@ yargs.command({
     handler (argv) {
         removeNote(argv.title)
         
-        console.log('Remove from note')
+        //console.log('Remove from note')
     }
 })
 
@@ -49,7 +49,9 @@ yargs.command({
     command: 'list',
     describe: 'list item',
     handler () {
-        console.log('list items in note')
+        listNodtes()
+
+        //console.log('list items in note')
     }
 })
 
