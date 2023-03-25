@@ -10,10 +10,11 @@ const getNotes = (note) => {
 const addNote = (title, body) => {
     const dataB = loadNote();
     // checking for duplicate titles
-    const duplicate = dataB.filter((note)=> note.title === title)
+    //const duplicate = dataB.filter((note)=> note.title === title);
+    const duplicateNote = dataB.find((note) => note.title === title);
 
     // using my search to determine if the new note should be added or is already added
-    if (duplicate.length === 0) {
+    if (!duplicateNote) {
         dataB.push({
             title: title,
             body: body
@@ -52,6 +53,7 @@ const removeNote = (title) => {
 
 }
 
+// list notes method
 const listNodtes = () => {
     const dataB = loadNote();
     let num = 0;
@@ -60,6 +62,22 @@ const listNodtes = () => {
         num += 1
         console.log(chalk.red.bgWhite(num + ' ' + note.title));
     });
+}
+
+// read note method, it takes in the note title then search for the note. 
+// if found it print the note and the body else it sends an error message
+const readNote = (title) => {
+    const dataB = loadNote();
+
+    const noteToRead = dataB.find((note) => note.title === title);
+
+    if (noteToRead) {
+        console.log(chalk.bgGreen.white.bold(noteToRead.title))
+        console.log(chalk.bgWhite.blue(noteToRead.body))
+    }
+    else {
+        console.log(chalk.bgRed.white.bold(title + " not found. Please check title."))
+    }
 }
 
 // collecting the database so we can work on it
@@ -81,5 +99,6 @@ module.exports = {
     getNotes,
     addNote,
     removeNote,
-    listNodtes
+    listNodtes,
+    readNote
 };
